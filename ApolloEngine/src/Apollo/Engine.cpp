@@ -9,7 +9,6 @@ namespace Apollo
         m_isRunning = true;
 
         // Abstract out the window functionality
-        m_window = new sf::RenderWindow(sf::VideoMode(800, 600), "Apollo");
         m_window->setFramerateLimit(60);
 
         m_game->init();
@@ -35,14 +34,6 @@ namespace Apollo
                 shutdown();
             }
 
-            else if (m_event.type == sf::Event::KeyPressed)
-            {
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-                {
-                    shutdown();
-                }
-            }
-
             m_game->handleEvents(m_event);
         }
     }
@@ -56,6 +47,11 @@ namespace Apollo
     {
         m_window->clear();
 
+        sf::CircleShape shape;
+        shape.setRadius(100.f);
+        shape.setFillColor(sf::Color::Green);
+
+        //m_window->draw(shape);
         m_game->render(*m_window);
 
         m_window->display();

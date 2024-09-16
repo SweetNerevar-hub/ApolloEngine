@@ -24,12 +24,15 @@
     <ClInclude Include="src\Apollo\IGame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Apollo\Export.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Apollo\Entry.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Apollo\Engine.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Apollo\Entry.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -2,13 +2,12 @@
 
 #include <iostream>
 
-#include <SFML/Graphics.hpp>
-
+#include "Export.h"
 #include "IGame.h"
 
 namespace Apollo
 {
-	class Engine
+	class APOLLO_API Engine
 	{
 	public:
 		Engine(IGame* game);
@@ -23,7 +22,7 @@ namespace Apollo
 		void render();
 
 	private:
-		sf::RenderWindow* m_window = nullptr;
+		sf::RenderWindow* m_window = new sf::RenderWindow(sf::VideoMode(800, 600), "Apollo");
 
 		IGame* m_game = nullptr;
 		
