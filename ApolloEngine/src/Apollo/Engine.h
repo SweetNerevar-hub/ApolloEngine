@@ -1,8 +1,5 @@
 #pragma once
 
-#include <iostream>
-
-#include "Export.h"
 #include "IGame.h"
 
 namespace Apollo
