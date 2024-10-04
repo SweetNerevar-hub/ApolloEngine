@@ -12,6 +12,7 @@
 #include <map>
 #include <stack>
 #include <queue>
+#include <tuple>
 
 // SFML
 #include <SFML/Graphics.hpp>

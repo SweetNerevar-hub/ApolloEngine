@@ -1,6 +1,7 @@
 #pragma once
 
-#include <Apollo.h>
+#include "pch.h"
+#include <Apollo/Entry.h>
 
 class Game : public Apollo::IGame
 {

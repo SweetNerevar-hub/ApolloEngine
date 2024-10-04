@@ -92,9 +92,11 @@
     <ProjectReference />
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Systems\SCollision.cpp" />
     <ClCompile Include="src\Game.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Systems\SCollision.h" />
     <ClInclude Include="src\Game.h" />
   </ItemGroup>
   <ItemGroup>
