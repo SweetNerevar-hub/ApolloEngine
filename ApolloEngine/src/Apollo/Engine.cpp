@@ -17,6 +17,7 @@ namespace Apollo
         // Game Loop
         while (m_isRunning)
         {
+            IECS::updateEntityManager();
             handleEvents();
             update();
             render();
@@ -48,11 +49,6 @@ namespace Apollo
     {
         m_window->clear();
 
-        sf::CircleShape shape;
-        shape.setRadius(100.f);
-        shape.setFillColor(sf::Color::Green);
-
-        //m_window->draw(shape);
         m_game->render(*m_window);
 
         m_window->display();

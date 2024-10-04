@@ -20,6 +20,7 @@
     <ClInclude Include="src\Apollo\Entry.h" />
     <ClInclude Include="src\Apollo\Export.h" />
     <ClInclude Include="src\Apollo\Engine.h" />
+    <ClInclude Include="src\Apollo\IECS.h" />
     <ClInclude Include="src\Apollo\IGame.h" />
     <ClInclude Include="src\pch.h" />
   </ItemGroup>

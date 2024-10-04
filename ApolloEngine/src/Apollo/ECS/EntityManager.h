@@ -8,10 +8,10 @@ namespace Apollo::ECS
 	class EntityManager
 	{
 	public:
-		EntityManager()
+		static EntityManager& Instance()
 		{
-			// Max amount of entities
-			entities.resize(1200);
+			static EntityManager entityManager;
+			return entityManager;
 		}
 
 		std::vector<Entity> entities;
@@ -19,7 +19,7 @@ namespace Apollo::ECS
 		// Adds the entities from the addNextFrame list, 
 		// into the main entities list at the beginning of each frame,
 		// to avoid interator invalidation
-		void update();
+		const void update();
 
 		// Creates a new entity
 		Entity create(const std::string& tag);
@@ -34,6 +34,12 @@ namespace Apollo::ECS
 		std::vector<Entity>& getEntitiesByTag(const std::string& tag);
 
 	private:
+		EntityManager()
+		{
+			// Max amount of entities
+			entities.resize(1200);
+		}
+
 		std::vector<Entity> m_addNextFrame;
 	};
 }

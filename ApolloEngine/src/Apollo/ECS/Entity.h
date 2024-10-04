@@ -18,7 +18,7 @@ namespace Apollo::ECS
 		void add(TArgs&&... args)
 		{
 			auto& c = get<T>();
-			c = T(std::forward<TArgs>(args));
+			c = T(std::forward<TArgs>(args)...);
 
 			return ECSMemoryPool::Instance().add<T>(id);
 		}

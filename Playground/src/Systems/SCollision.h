@@ -8,5 +8,5 @@ public:
 	void update(Apollo::ECS::Entities& entities) override;
 
 private:
-
+	static void updateColliders(Apollo::ECS::Entity e);
 };

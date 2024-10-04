@@ -1,11 +1,11 @@
 #include "Game.h"
 
+using namespace Apollo;
+using namespace Apollo::ECS;
+
 void Game::init()
 {
-	shape.setRadius(100.f);
-	shape.setFillColor(sf::Color::Blue);
-	shape.setOrigin(shape.getGlobalBounds().width / 2.f, shape.getGlobalBounds().height / 2.f);
-	shape.setPosition(400, 300);
+	
 }
 
 void Game::handleEvents(sf::Event& event)
@@ -16,6 +16,7 @@ void Game::handleEvents(sf::Event& event)
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::K))
 		{
 			std::cout << "Key Input!" << std::endl;
+			createCircle();
 		}
 		break;
 	}
@@ -28,13 +29,25 @@ void Game::update()
 
 void Game::render(sf::RenderWindow& window)
 {
-	sf::RectangleShape rect;
-	rect.setFillColor(sf::Color::Red);
-	rect.setSize(sf::Vector2f{100.f, 100.f});
-	rect.setPosition(100.f, 100.f);
+	for (CShape& circle : m_circles)
+	{
+		window.draw(circle.shape);
+	}
+}
 
-	window.draw(rect);
-	window.draw(shape);
+void Game::createCircle()
+{
+	Entity circle = IECS::createEntity("Circle");
+	circle.add<CPosition>();
+	circle.add<CVelocity>();
+	circle.add<CShape>();
+	circle.add<CMoveSpeed>();
+
+	CShape& shape = circle.get<CShape>();
+	shape.shape.setRadius(20.f);
+	shape.shape.setFillColor(sf::Color::Green);
+
+	m_circles.emplace_back(circle);
 }
 
 Apollo::IGame* Apollo::createGame()

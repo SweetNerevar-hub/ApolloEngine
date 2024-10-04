@@ -14,11 +14,31 @@ namespace Apollo::ECS
 	{
 	public:
 		sf::Vector2f position;
+
+		CPosition() = default;
+	};
+
+	class CVelocity : public Component
+	{
+	public:
+		sf::Vector2f velocity;
+
+		CVelocity() = default;
+	};
+
+	class CMoveSpeed : public Component
+	{
+	public:
+		float moveSpeed;
+
+		CMoveSpeed() = default;
 	};
 
 	class CShape : public Component
 	{
 	public:
 		sf::CircleShape shape;
+
+		CShape() = default;
 	};
 }

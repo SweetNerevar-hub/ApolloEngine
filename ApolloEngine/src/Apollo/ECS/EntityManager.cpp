@@ -3,7 +3,7 @@
 
 namespace Apollo::ECS
 {
-	void EntityManager::update()
+	const void EntityManager::update()
 	{
 		for (Entity e : m_addNextFrame)
 		{
