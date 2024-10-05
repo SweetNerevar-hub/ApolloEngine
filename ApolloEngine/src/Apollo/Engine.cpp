@@ -17,7 +17,7 @@ namespace Apollo
         // Game Loop
         while (m_isRunning)
         {
-            IECS::updateEntityManager();
+            IECS::updateEntityList();
             handleEvents();
             update();
             render();

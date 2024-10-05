@@ -1,7 +1,7 @@
 #pragma once
 
-#include "IGame.h"
-#include "IECS.h"
+#include "Interfaces/IGame.h"
+#include "Interfaces/IECS.h"
 
 namespace Apollo
 {

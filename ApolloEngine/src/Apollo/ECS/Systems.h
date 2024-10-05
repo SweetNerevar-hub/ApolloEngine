@@ -1,6 +1,6 @@
 #pragma once
 
-#include "EntityManager.h"
+#include "Entity.h"
 
 namespace Apollo::ECS
 {
@@ -8,7 +8,7 @@ namespace Apollo::ECS
 
 	class System
 	{
-	protected:
+	public:
 		virtual void update(Entities& entities) = 0;
 	};
 }

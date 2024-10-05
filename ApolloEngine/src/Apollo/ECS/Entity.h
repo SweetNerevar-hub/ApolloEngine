@@ -1,6 +1,5 @@
 #pragma once
 
-#include "pch.h"
 #include "ECSMemoryPool.h"
 
 namespace Apollo::ECS

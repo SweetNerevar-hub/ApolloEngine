@@ -3,9 +3,9 @@
 
 namespace Apollo::ECS
 {
-	const void EntityManager::update()
+	void EntityManager::update()
 	{
-		for (Entity e : m_addNextFrame)
+		for (auto& e : m_addNextFrame)
 		{
 			entities.push_back(e);
 		}
@@ -19,12 +19,13 @@ namespace Apollo::ECS
 		Entity e = Entity(index);
 
 		m_addNextFrame.push_back(e);
+
 		return e;
 	}
 
 	void EntityManager::clear()
 	{
-		for (Entity e : entities)
+		for (Entity& e : entities)
 		{
 			e.destroy();
 		}
@@ -34,7 +35,7 @@ namespace Apollo::ECS
 
 	Entity EntityManager::getEntityByTag(const std::string& tag)
 	{
-		for (Entity e : entities)
+		for (Entity& e : entities)
 		{
 			if (e.getTag() == tag)
 			{
@@ -42,14 +43,14 @@ namespace Apollo::ECS
 			}
 		}
 
-		return -1;
+		return Entity();
 	}
 
-	std::vector<Entity>& EntityManager::getEntitiesByTag(const std::string& tag)
+	std::vector<Entity> EntityManager::getEntitiesByTag(const std::string& tag)
 	{
 		std::vector<Entity> entitiesWithTag;
 
-		for (Entity e : entities)
+		for (Entity& e : entities)
 		{
 			if (e.getTag() == tag)
 			{

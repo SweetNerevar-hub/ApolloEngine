@@ -1,6 +1,5 @@
 #pragma once
 
-#include "pch.h"
 #include "Entity.h"
 
 namespace Apollo::ECS
@@ -8,10 +7,10 @@ namespace Apollo::ECS
 	class EntityManager
 	{
 	public:
-		static EntityManager& Instance()
+		EntityManager()
 		{
-			static EntityManager entityManager;
-			return entityManager;
+			// Max amount of entities
+			entities.reserve(1200);
 		}
 
 		std::vector<Entity> entities;
@@ -19,7 +18,7 @@ namespace Apollo::ECS
 		// Adds the entities from the addNextFrame list, 
 		// into the main entities list at the beginning of each frame,
 		// to avoid interator invalidation
-		const void update();
+		void update();
 
 		// Creates a new entity
 		Entity create(const std::string& tag);
@@ -31,15 +30,9 @@ namespace Apollo::ECS
 		Entity getEntityByTag(const std::string& tag);
 
 		// Returns a list containing every entity with a given tag
-		std::vector<Entity>& getEntitiesByTag(const std::string& tag);
+		std::vector<Entity> getEntitiesByTag(const std::string& tag);
 
 	private:
-		EntityManager()
-		{
-			// Max amount of entities
-			entities.resize(1200);
-		}
-
 		std::vector<Entity> m_addNextFrame;
 	};
 }

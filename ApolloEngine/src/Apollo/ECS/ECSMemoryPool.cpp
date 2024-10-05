@@ -5,7 +5,7 @@ namespace Apollo::ECS
 {
 	ECSMemoryPool::ECSMemoryPool(size_t maxEntities)
 	{
-		fillComponentVectors(m_pool, maxEntities, std::make_index_sequence<std::tuple_size<decltype(m_pool)>::value>{});
+		fillComponentVectors(maxEntities, std::make_index_sequence<std::tuple_size<decltype(m_pool)>::value>{});
 		m_tags.resize(maxEntities);
 		m_active.resize(maxEntities);
 	}
@@ -14,7 +14,7 @@ namespace Apollo::ECS
 	{
 		size_t index = getFirstFreeIndex();
 
-		resetComponentVectors(m_pool, index, std::make_index_sequence<std::tuple_size<decltype(m_pool)>::value>{});
+		resetComponentVectors(index, std::make_index_sequence<std::tuple_size<decltype(m_pool)>::value>{});
 		m_tags[index] = tag;
 		m_active[index] = true;
 		m_totalEntities++;
