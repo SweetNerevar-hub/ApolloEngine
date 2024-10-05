@@ -1,6 +1,7 @@
 #pragma once
 
-#include "IGame.h"
+#include "Interfaces/IGame.h"
+#include "Interfaces/IECS.h"
 
 namespace Apollo
 {
@@ -19,10 +20,11 @@ namespace Apollo
 		void render();
 
 	private:
+		IGame* m_game = nullptr;
+
 		sf::RenderWindow* m_window = new sf::RenderWindow(sf::VideoMode(800, 600), "Apollo");
 
-		IGame* m_game = nullptr;
-		
+		int m_currentFrame = 0;
 		bool m_isRunning = false;
 
 		void shutdown();

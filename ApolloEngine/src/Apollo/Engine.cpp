@@ -3,7 +3,11 @@
 
 namespace Apollo
 {
-    Engine::Engine(IGame* game) : m_game(game) {}
+    Engine::Engine(IGame* game) : m_game(game)
+    {
+        // Set a random seed
+        srand(time(0));
+    }
 
 	void Engine::run()
 	{
@@ -17,9 +21,18 @@ namespace Apollo
         // Game Loop
         while (m_isRunning)
         {
+            sf::Clock frameTime;
+
+            IECS::updateEntityList();
             handleEvents();
             update();
             render();
+            m_currentFrame++;
+
+            if (m_currentFrame % 60 == 0)
+            {
+                printf("FPS: %f\n", 1 / frameTime.getElapsedTime().asSeconds());
+            }
         }
 
         m_window->close();
@@ -48,11 +61,6 @@ namespace Apollo
     {
         m_window->clear();
 
-        sf::CircleShape shape;
-        shape.setRadius(100.f);
-        shape.setFillColor(sf::Color::Green);
-
-        //m_window->draw(shape);
         m_game->render(*m_window);
 
         m_window->display();

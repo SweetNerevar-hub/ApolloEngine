@@ -21,7 +21,7 @@
     <ClInclude Include="src\Apollo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Apollo\IGame.h">
+    <ClInclude Include="src\Apollo\Interfaces\IGame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Apollo\Export.h">
@@ -39,6 +39,24 @@
     <ClInclude Include="src\pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Apollo\ECS\Entity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Apollo\ECS\ECSMemoryPool.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Apollo\ECS\Components.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Apollo\Interfaces\IECS.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Apollo\ECS\SystemsManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Apollo\Utils\Math.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Apollo\Engine.cpp">
@@ -48,6 +66,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\pch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Apollo\ECS\ECSMemoryPool.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Apollo\Interfaces\IECS.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Apollo\ECS\SystemsManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Apollo\Utils\Math.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

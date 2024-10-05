@@ -1,11 +1,14 @@
+#include "pch.h"
 #include "Game.h"
+
+using namespace Apollo;
+using namespace Apollo::ECS;
+using namespace Apollo::Utils;
 
 void Game::init()
 {
-	shape.setRadius(100.f);
-	shape.setFillColor(sf::Color::Blue);
-	shape.setOrigin(shape.getGlobalBounds().width / 2.f, shape.getGlobalBounds().height / 2.f);
-	shape.setPosition(400, 300);
+	IECS::registerSystem(std::make_unique<SCollision>());
+	IECS::registerSystem(std::make_unique<SMovement>());
 }
 
 void Game::handleEvents(sf::Event& event)
@@ -15,7 +18,7 @@ void Game::handleEvents(sf::Event& event)
 	case sf::Event::KeyPressed:
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::K))
 		{
-			std::cout << "Key Input!" << std::endl;
+			createCircle(1000);
 		}
 		break;
 	}
@@ -23,18 +26,76 @@ void Game::handleEvents(sf::Event& event)
 
 void Game::update()
 {
-	std::cout << "Updating!" << std::endl;
+	//std::cout << "Updating!" << std::endl;
+
+	IECS::updateSystems();
+
+	for (Entity& e : IECS::getEntities())
+	{
+		if (e.has<CShape>())
+		{
+			e.get<CShape>().shape.setPosition(e.get<CPosition>().position);
+		}
+	}
 }
 
 void Game::render(sf::RenderWindow& window)
 {
-	sf::RectangleShape rect;
-	rect.setFillColor(sf::Color::Red);
-	rect.setSize(sf::Vector2f{100.f, 100.f});
-	rect.setPosition(100.f, 100.f);
+	for (Entity& e : IECS::getEntities())
+	{
+		if (e.has<CShape>())
+		{
+			window.draw(e.get<CShape>().shape);
+		}
+	}
+}
 
-	window.draw(rect);
-	window.draw(shape);
+void Game::createCircle(int amount)
+{
+	for (int i = 0; i < amount; i++)
+	{
+		float rx = Math::randomRange(-2.f, 2.f);
+		float ry = Math::randomRange(-2.f, 2.f);
+
+		Entity circle = IECS::createEntity("Circle");
+		circle.add<CPosition>(350.f, 250.f);
+		circle.add<CVelocity>(rx, ry);
+		circle.add<CShape>(10.f, getRandomColour());
+		circle.add<CMoveSpeed>(3.f);
+	}
+
+	std::cout << "Total Entities: " << IECS::getEntities().size() + amount << std::endl;
+}
+
+sf::Color Game::getRandomColour()
+{
+	int r = Math::randomRange(0, 7);
+	switch (r)
+	{
+	case 0:
+		return sf::Color::Black;
+
+	case 1:
+		return sf::Color::Blue;
+
+	case 2:
+		return sf::Color::Cyan;
+
+	case 3:
+		return sf::Color::Green;
+
+	case 4:
+		return sf::Color::Magenta;
+
+	case 5:
+		return sf::Color::Red;
+
+	case 6:
+		return sf::Color::White;
+
+	case 7:
+		return sf::Color::Yellow;
+	}
 }
 
 Apollo::IGame* Apollo::createGame()
