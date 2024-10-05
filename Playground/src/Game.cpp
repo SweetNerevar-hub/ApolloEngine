@@ -3,6 +3,7 @@
 
 using namespace Apollo;
 using namespace Apollo::ECS;
+using namespace Apollo::Utils;
 
 void Game::init()
 {
@@ -17,7 +18,7 @@ void Game::handleEvents(sf::Event& event)
 	case sf::Event::KeyPressed:
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::K))
 		{
-			createCircle();
+			createCircle(1000);
 		}
 		break;
 	}
@@ -49,13 +50,52 @@ void Game::render(sf::RenderWindow& window)
 	}
 }
 
-void Game::createCircle()
+void Game::createCircle(int amount)
 {
-	Entity circle = IECS::createEntity("Circle");
-	circle.add<CPosition>(400.f, 300.f);
-	circle.add<CVelocity>(1.f, 1.f);
-	circle.add<CShape>(10.f, sf::Color::Green);
-	circle.add<CMoveSpeed>(3.f);
+	for (int i = 0; i < amount; i++)
+	{
+		float rx = Math::randomRange(-2.f, 2.f);
+		float ry = Math::randomRange(-2.f, 2.f);
+
+		Entity circle = IECS::createEntity("Circle");
+		circle.add<CPosition>(350.f, 250.f);
+		circle.add<CVelocity>(rx, ry);
+		circle.add<CShape>(10.f, getRandomColour());
+		circle.add<CMoveSpeed>(3.f);
+	}
+
+	std::cout << "Total Entities: " << IECS::getEntities().size() + amount << std::endl;
+}
+
+sf::Color Game::getRandomColour()
+{
+	int r = Math::randomRange(0, 7);
+	switch (r)
+	{
+	case 0:
+		return sf::Color::Black;
+
+	case 1:
+		return sf::Color::Blue;
+
+	case 2:
+		return sf::Color::Cyan;
+
+	case 3:
+		return sf::Color::Green;
+
+	case 4:
+		return sf::Color::Magenta;
+
+	case 5:
+		return sf::Color::Red;
+
+	case 6:
+		return sf::Color::White;
+
+	case 7:
+		return sf::Color::Yellow;
+	}
 }
 
 Apollo::IGame* Apollo::createGame()

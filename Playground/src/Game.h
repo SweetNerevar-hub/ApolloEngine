@@ -14,6 +14,9 @@ public:
 	void update() override;
 	void render(sf::RenderWindow& window) override;
 
+	
+
 private:
-	void createCircle();
+	void createCircle(int amount);
+	sf::Color getRandomColour();
 };

@@ -54,6 +54,9 @@
     <ClInclude Include="src\Apollo\ECS\SystemsManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Apollo\Utils\Math.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Apollo\Engine.cpp">
@@ -72,6 +75,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Apollo\ECS\SystemsManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Apollo\Utils\Math.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -10,7 +10,7 @@ namespace Apollo::ECS
 		EntityManager()
 		{
 			// Max amount of entities
-			entities.reserve(1200);
+			entities.reserve(100000);
 		}
 
 		std::vector<Entity> entities;

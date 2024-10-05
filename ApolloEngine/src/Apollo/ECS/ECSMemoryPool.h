@@ -16,7 +16,7 @@ namespace Apollo::ECS
 	public:
 		static ECSMemoryPool& Instance()
 		{
-			static ECSMemoryPool memoryPool(1200);
+			static ECSMemoryPool memoryPool(100000);
 			return memoryPool;
 		}
 

@@ -18,6 +18,7 @@ namespace Apollo::ECS
 		m_tags[index] = tag;
 		m_active[index] = true;
 		m_totalEntities++;
+
 		return index;
 	}
 

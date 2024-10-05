@@ -24,6 +24,7 @@ namespace Apollo
 
 		sf::RenderWindow* m_window = new sf::RenderWindow(sf::VideoMode(800, 600), "Apollo");
 
+		int m_currentFrame = 0;
 		bool m_isRunning = false;
 
 		void shutdown();
