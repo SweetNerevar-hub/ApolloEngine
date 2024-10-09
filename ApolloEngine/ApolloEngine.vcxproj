@@ -11,6 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Apollo\GameEventManager.h" />
+    <ClInclude Include="src\Apollo\Event.h" />
     <ClInclude Include="src\Apollo\SceneManager.h" />
     <ClInclude Include="src\Apollo\ECS\Components.h" />
     <ClInclude Include="src\Apollo\ECS\ECSMemoryPool.h" />
@@ -29,6 +31,7 @@
     <ClInclude Include="src\Apollo\ECS\SystemsManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Apollo\GameEventManager.cpp" />
     <ClCompile Include="src\Apollo\SceneManager.cpp" />
     <ClCompile Include="src\Apollo\ECS\ECSMemoryPool.cpp" />
     <ClCompile Include="src\Apollo\ECS\EntityManager.cpp" />

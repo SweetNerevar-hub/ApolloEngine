@@ -13,6 +13,11 @@ void SCollision::update(Entities& entities)
 	}
 }
 
+std::unique_ptr<SCollision> create()
+{
+	return std::make_unique<SCollision>();
+}
+
 void SCollision::boundryCheck(Entity e)
 {
 	// Check if the bounds of the entity has reached the window border,

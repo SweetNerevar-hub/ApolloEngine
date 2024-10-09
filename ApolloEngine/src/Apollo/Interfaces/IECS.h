@@ -17,7 +17,7 @@ namespace Apollo
 		static void registerSystem(std::unique_ptr<ECS::System> system);
 
 	private:
-		static ECS::EntityManager s_entityManager;
-		static ECS::SystemsManager s_systemsManager;
+		inline static ECS::EntityManager s_entityManager;
+		inline static ECS::SystemsManager s_systemsManager;
 	};
 }

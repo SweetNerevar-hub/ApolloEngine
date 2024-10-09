@@ -23,8 +23,9 @@ namespace Apollo
         {
             sf::Clock frameTime;
 
+            m_gameEventManager.processEvents();
             IECS::updateEntityList();
-            handleEvents();
+            handleInput();
             update();
             render();
             m_currentFrame++;
@@ -38,7 +39,7 @@ namespace Apollo
         m_window->close();
 	}
 
-    void Engine::handleEvents()
+    void Engine::handleInput()
     {
         sf::Event m_event;
         while (m_window->pollEvent(m_event))

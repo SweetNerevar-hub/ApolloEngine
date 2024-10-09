@@ -1,33 +1,17 @@
-Date: 06/10/2024 (day/month/year)
+Date: 09/10/2024 (day/month/year)
 
-Subject: Game Scenes (or, the difficulty of naming things) & Introduction to my .diary
+Subject: Game Events and Event System 
 
-Welcome to my first entry into this stream of conciousness I will call my 'diary'.
-With each new commit to a remote branch (or whenever I feel like it), I will try to explain my headspace during the implementation of features and why I do certain things.
-This is a practice that I'm lifting from uni, much to my own surprise, as the reflection documents we students were mandated to do after every project was constrictive and too frequent (between 6 - 9 per unit), often feeling like more tedious documenation, rather than a true reflection of the process.
-Another inspiration for this diary thing I'm doing is so I can keep a record of my process during the development of not only this engine, but future engines and even games that I plan to make with this engine.
-However, what really what put this thought into my head was reading the book Game Engine Black Book: Doom, by Fabien Sanglard. Where I was introduced to Id's practice of recording thoughts and keeping people up-to-date with projects via their .plan files which were uploaded to a public server.
+The creation of the event system has been an interesting challenge to overcome.
+I wasn't really a big fan of the delegate type system as seen in Unity, as I've always felt it hides where each event is being triggered.
+Especially in this pure ECS architecture, having a system's functions be delegated to an event call, I felt was primed to get lost and thus make it harder to debug of something went wrong and I needed to find all the different system that use that event.
+So I opted for a method of centralising system calls within the event itself (the event handles its own conditional checks and directly calls the relevant system functions).
 
+No doubt this is a very strange implmentation to most, and is rife with problems that I've yet to face; but this event system is the prime reason for this engines existence: solve problems in simple and elegant ways, watch it crash and burn, then pick the pieces and try a different solution.
 
-This commit introduces the early foundations of the engine user's ability to create game scenes.
-Currently at work we are developing a custom AI implementation for things like navigation and agent behaviours, so there has been much discussion on state machines (as that is what we are using).
-So recently I've put much research (for me) into AI behavioural systems and the different implementations of a state machine, a finite state machine (fsm) for my next game project specifically.
-
-I was racking my brain about how to label the states that are basically just game scenes. My implementation results in user's able to inherit from a base Scene class and call pure virtual functions, like update() and render().
-However, I struggling to seperate them from just a very different kind of 'state', like an AI behaviour state, or a player character state. 
-It didn't feel right calling them 'scenes' since (and I was mainly concerned with how Unity uses the word 'scene') there may be entire scene changes, but I also wanted this system to implement non-scene changes like a pause menu.
-However, I didn't like lumping it together with the term 'state' either, as that has quite a broad term. I ended up just calling them scenes, as no-one actually cares since I'll only ever be the one using this engine, yet I do try to create features and implement naming conventions as if a million people will use it.
-A dogma I try to follow for every creative project, as it forces me to think deeply about what I'm doing and whether someone else will be able to understand it.
-
-
-P.S. I was supposed to create this .diary much earlier during the implementation of the ECS architecture. But for some reason I hummed-and-awed at how I would go about it, and so completely skipped over it.
-I wanted to talk about where I found the implementation details (Dave Churchill's excellent lectures) and how I fixed some of the issues that became present later on (component storage scalability, and creating a tuple iterator).
-However, there is a possiblity that I create a custom ECS using bitmasks to store entitie's components. As I'm not a huge fan of obtuse C++ features like templates, fold expressions and other features I don't understand, and I find simpler solutions far more elegant.
-The bedrock of the architecture is mainly complete, however there is still many additions to be made, like storing user created components.
-
-I could keep going on about future plans, the sample code I'm pulling from and the optimisations I plan to make to that. But it's late and I do want to commit this.
-I hope I keep going with this .diary thing as I think it will be cool to look back on later in life. But it's still too early to know whether this will be a main-stay, or if I'll lose motivation to write these reflections in the future.
-
-(I promise they won't all be this long)
+One thing I'm still wrestling with is the breaking up of different types of events (that is to say Input Events will be different than Game Events, which will be different than State Machine Events). Technically they're all events, they will all three have very different implmentations and very different outputs.
+For instance, input events will trigger when, obviously, the player triggers an input (keyboard, mouse, etc.) and those will call the relevant systems. State machine events on the other hand will be concerned with AI behaviours, exiting states and entering others. -
+- This is my (probably) poor solution to coupling between states within a finite machine: instead of states directly calling other states they just invoke an event (thus exiting the current state), the state machine will then recieve that event, and enter a new one based on the event and perhaps certain parameters.
+And while it's nice to have them seperated (without needing deep inheritance) I can't help but think with a little more architecting and creativity, they can have the same base identity, but still behave how I need them to.
 
 - Cameron Moore

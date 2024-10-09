@@ -6,6 +6,8 @@
 #include "Systems/SCollision.h"
 #include "Systems/SMovement.h"
 
+#include "GameEvents/GameEvents.h"
+
 class Game : public Apollo::IGame
 {
 public:

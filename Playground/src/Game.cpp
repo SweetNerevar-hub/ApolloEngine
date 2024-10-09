@@ -4,11 +4,12 @@
 using namespace Apollo;
 using namespace Apollo::ECS;
 using namespace Apollo::Utils;
+using namespace Apollo::Event;
 
 void Game::init()
 {
-	IECS::registerSystem(std::make_unique<SCollision>());
 	IECS::registerSystem(std::make_unique<SMovement>());
+	IECS::registerSystem(std::make_unique<SCollision>());
 }
 
 void Game::handleEvents(sf::Event& event)
@@ -18,7 +19,7 @@ void Game::handleEvents(sf::Event& event)
 	case sf::Event::KeyPressed:
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::K))
 		{
-			createCircle(1000);
+			createCircle(1);
 		}
 		break;
 	}
@@ -26,8 +27,6 @@ void Game::handleEvents(sf::Event& event)
 
 void Game::update()
 {
-	//std::cout << "Updating!" << std::endl;
-
 	IECS::updateSystems();
 
 	for (Entity& e : IECS::getEntities())
@@ -76,6 +75,8 @@ sf::Color Game::getRandomColour()
 		return sf::Color::Black;
 
 	case 1:
+		// Events Testing
+		GameEventManager::publish(std::make_unique<OnCircleSpawn>(sf::Color::Blue));
 		return sf::Color::Blue;
 
 	case 2:
@@ -88,6 +89,8 @@ sf::Color Game::getRandomColour()
 		return sf::Color::Magenta;
 
 	case 5:
+		// Events Testing
+		GameEventManager::publish(std::make_unique<OnCircleSpawn>(sf::Color::Red));
 		return sf::Color::Red;
 
 	case 6:
