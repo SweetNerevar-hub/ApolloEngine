@@ -1,0 +1,17 @@
+Date: 09/10/2024 (day/month/year)
+
+Subject: Game Events and Event System 
+
+The creation of the event system has been an interesting challenge to overcome.
+I wasn't really a big fan of the delegate type system as seen in Unity, as I've always felt it hides where each event is being triggered.
+Especially in this pure ECS architecture, having a system's functions be delegated to an event call, I felt was primed to get lost and thus make it harder to debug of something went wrong and I needed to find all the different system that use that event.
+So I opted for a method of centralising system calls within the event itself (the event handles its own conditional checks and directly calls the relevant system functions).
+
+No doubt this is a very strange implmentation to most, and is rife with problems that I've yet to face; but this event system is the prime reason for this engines existence: solve problems in simple and elegant ways, watch it crash and burn, then pick the pieces and try a different solution.
+
+One thing I'm still wrestling with is the breaking up of different types of events (that is to say Input Events will be different than Game Events, which will be different than State Machine Events). Technically they're all events, they will all three have very different implmentations and very different outputs.
+For instance, input events will trigger when, obviously, the player triggers an input (keyboard, mouse, etc.) and those will call the relevant systems. State machine events on the other hand will be concerned with AI behaviours, exiting states and entering others. -
+- This is my (probably) poor solution to coupling between states within a finite machine: instead of states directly calling other states they just invoke an event (thus exiting the current state), the state machine will then recieve that event, and enter a new one based on the event and perhaps certain parameters.
+And while it's nice to have them seperated (without needing deep inheritance) I can't help but think with a little more architecting and creativity, they can have the same base identity, but still behave how I need them to.
+
+- Cameron Moore

@@ -92,11 +92,14 @@
     <ProjectReference />
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\GameEvents\OnCircleSpawn.cpp" />
+    <ClCompile Include="src\GameEvents\OnPlayerCollision.cpp" />
     <ClCompile Include="src\Systems\SMovement.cpp" />
     <ClCompile Include="src\Systems\SCollision.cpp" />
     <ClCompile Include="src\Game.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\GameEvents\GameEvents.h" />
     <ClInclude Include="src\Systems\SMovement.h" />
     <ClInclude Include="src\Systems\SCollision.h" />
     <ClInclude Include="src\Game.h" />

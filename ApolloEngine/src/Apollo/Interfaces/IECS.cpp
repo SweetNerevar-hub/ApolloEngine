@@ -3,7 +3,7 @@
 
 namespace Apollo
 {
-	ECS::EntityManager IECS::s_entityManager;
+	// ECS::EntityManager IECS::s_entityManager;
 	void IECS::updateEntityList()
 	{
 		s_entityManager.update();
@@ -19,7 +19,7 @@ namespace Apollo
 		return s_entityManager.entities;
 	}
 
-	ECS::SystemsManager IECS::s_systemsManager;
+	// ECS::SystemsManager IECS::s_systemsManager;
 	void IECS::updateSystems()
 	{
 		s_systemsManager.updateSystems(s_entityManager.entities);

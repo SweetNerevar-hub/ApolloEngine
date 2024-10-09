@@ -3,6 +3,8 @@
 #include "Interfaces/IGame.h"
 #include "Interfaces/IECS.h"
 
+#include "GameEventManager.h"
+
 namespace Apollo
 {
 	class APOLLO_API Engine
@@ -15,7 +17,7 @@ namespace Apollo
 		}
 
 		void run();
-		void handleEvents();
+		void handleInput();
 		void update();
 		void render();
 
@@ -23,6 +25,7 @@ namespace Apollo
 		IGame* m_game = nullptr;
 
 		sf::RenderWindow* m_window = new sf::RenderWindow(sf::VideoMode(800, 600), "Apollo");
+		Event::GameEventManager m_gameEventManager;
 
 		int m_currentFrame = 0;
 		bool m_isRunning = false;
