@@ -10,9 +10,4 @@ namespace Apollo::ECS
 			system->update(entities);
 		}
 	}
-
-	void SystemsManager::registerSystem(std::unique_ptr<System> system)
-	{
-		m_systems.emplace_back(std::move(system));
-	}
 }

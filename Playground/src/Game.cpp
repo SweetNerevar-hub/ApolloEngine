@@ -1,50 +1,74 @@
 #include "pch.h"
 #include "Game.h"
 
-using namespace Apollo;
-using namespace Apollo::ECS;
-using namespace Apollo::Utils;
-using namespace Apollo::Event;
-
 void Game::init()
 {
-	IECS::registerSystem(std::make_unique<SMovement>());
-	IECS::registerSystem(std::make_unique<SCollision>());
+	ApolloECS::registerSystem<SMovement>();
+	ApolloECS::registerSystem<SCollision>();
+
+	ApolloECS::registerComponent<Position>();
+	ApolloECS::registerComponent<Velocity>();
+	ApolloECS::registerComponent<Shape>();
+	ApolloECS::registerComponent<MoveSpeed>();
+
+	if (m_usePrefab)
+	{
+		Entity	circlePrefab = ApolloECS::createEntity("Circle");
+				circlePrefab.add<Position>(350.f, 250.f);
+				circlePrefab.add<Shape>(10.f, getRandomColour());
+				circlePrefab.add<MoveSpeed>(3.f);
+				circlePrefab.add<Velocity>(1.f, 1.f);
+
+		ApolloECS::createPrefab(circlePrefab, "CirclePrefab");
+		ApolloECS::destroyEntity(circlePrefab);
+	}
 }
 
-void Game::handleEvents(sf::Event& event)
+void Game::handleInput(sf::Event& event)
 {
 	switch (event.type)
 	{
 	case sf::Event::KeyPressed:
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::K))
 		{
-			createCircle(1);
+			createCircle(100);
 		}
+
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::L))
+		{
+			t = true;
+		}
+
 		break;
 	}
 }
 
 void Game::update()
 {
-	IECS::updateSystems();
-
-	for (Entity& e : IECS::getEntities())
+	if (t)
 	{
-		if (e.has<CShape>())
+		size_t r = Math::randomRange(0, ApolloECS::getEntities().size() - 1);
+		ApolloECS::destroyEntity(ApolloECS::getEntities().at(r));
+	}
+
+	ApolloECS::updateSystems();
+
+	for (Entity& e : ApolloECS::getEntities())
+	{
+		if (e.has<Shape>())
 		{
-			e.get<CShape>().shape.setPosition(e.get<CPosition>().position);
+			e.get<Shape>().shape.setPosition(e.get<Position>().x, e.get<Position>().y);
 		}
 	}
 }
 
 void Game::render(sf::RenderWindow& window)
 {
-	for (Entity& e : IECS::getEntities())
+	for (Entity& e : ApolloECS::getEntities())
 	{
-		if (e.has<CShape>())
+		if (e.has<Shape>())
 		{
-			window.draw(e.get<CShape>().shape);
+			window.draw(e.get<Shape>().shape);
 		}
 	}
 }
@@ -56,23 +80,32 @@ void Game::createCircle(int amount)
 		float rx = Math::randomRange(-2.f, 2.f);
 		float ry = Math::randomRange(-2.f, 2.f);
 
-		Entity circle = IECS::createEntity("Circle");
-		circle.add<CPosition>(350.f, 250.f);
-		circle.add<CVelocity>(rx, ry);
-		circle.add<CShape>(10.f, getRandomColour());
-		circle.add<CMoveSpeed>(3.f);
+		if (m_usePrefab)
+		{
+			Entity newCircle = ApolloECS::instantiate("CirclePrefab");
+			newCircle.add<Velocity>(rx, ry);
+		}
+
+		else
+		{
+			Entity circle = ApolloECS::createEntity("Circle");
+			circle.add<Position>(350.f, 250.f);
+			circle.add<Shape>(10.f, getRandomColour());
+			circle.add<MoveSpeed>(3.f);
+			circle.add<Velocity>(rx, ry);
+		}
 	}
 
-	std::cout << "Total Entities: " << IECS::getEntities().size() + amount << std::endl;
+	std::cout << "Total Entities: " << ApolloECS::getEntities().size() + amount << std::endl;
 }
 
 sf::Color Game::getRandomColour()
 {
-	int r = Math::randomRange(0, 7);
+	int r = Math::randomRange(0, 6);
 	switch (r)
 	{
 	case 0:
-		return sf::Color::Black;
+		return sf::Color::Yellow;
 
 	case 1:
 		// Events Testing
@@ -93,15 +126,12 @@ sf::Color Game::getRandomColour()
 		GameEventManager::publish(std::make_unique<OnCircleSpawn>(sf::Color::Red));
 		return sf::Color::Red;
 
-	case 6:
+	default:
 		return sf::Color::White;
-
-	case 7:
-		return sf::Color::Yellow;
 	}
 }
 
 Apollo::IGame* Apollo::createGame()
 {
-	return new Game();
+	return new Game(1024);
 }

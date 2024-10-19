@@ -7,6 +7,8 @@ namespace Apollo::Scene
 	class SceneManager
 	{
 	public:
+
+		// DOES THIS NEED TO BE A SINGLETON?
 		SceneManager(SceneManager const&) = delete;
 		SceneManager& operator= (SceneManager const) = delete;
 		static SceneManager& sceneManager()

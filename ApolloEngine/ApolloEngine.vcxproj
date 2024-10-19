@@ -11,19 +11,22 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Apollo\ECS\ComponentArray.h" />
+    <ClInclude Include="src\Apollo\ECS\PrefabManager.h" />
     <ClInclude Include="src\Apollo\GameEventManager.h" />
-    <ClInclude Include="src\Apollo\Event.h" />
+    <ClInclude Include="src\Apollo\GameEvent.h" />
+    <ClInclude Include="src\Apollo\Global.h" />
     <ClInclude Include="src\Apollo\SceneManager.h" />
-    <ClInclude Include="src\Apollo\ECS\Components.h" />
+    <ClInclude Include="src\Apollo\ECS\Component.h" />
     <ClInclude Include="src\Apollo\ECS\ECSMemoryPool.h" />
     <ClInclude Include="src\Apollo\ECS\Entity.h" />
     <ClInclude Include="src\Apollo\ECS\EntityManager.h" />
     <ClInclude Include="src\Apollo.h" />
-    <ClInclude Include="src\Apollo\ECS\Systems.h" />
+    <ClInclude Include="src\Apollo\ECS\System.h" />
     <ClInclude Include="src\Apollo\Entry.h" />
     <ClInclude Include="src\Apollo\Export.h" />
     <ClInclude Include="src\Apollo\Engine.h" />
-    <ClInclude Include="src\Apollo\Interfaces\IECS.h" />
+    <ClInclude Include="src\Apollo\Interfaces\ApolloECS.h" />
     <ClInclude Include="src\Apollo\Interfaces\IGame.h" />
     <ClInclude Include="src\Apollo\Scene.h" />
     <ClInclude Include="src\Apollo\Utils\Math.h" />
@@ -31,12 +34,13 @@
     <ClInclude Include="src\Apollo\ECS\SystemsManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Apollo\ECS\PrefabManager.cpp" />
     <ClCompile Include="src\Apollo\GameEventManager.cpp" />
     <ClCompile Include="src\Apollo\SceneManager.cpp" />
     <ClCompile Include="src\Apollo\ECS\ECSMemoryPool.cpp" />
     <ClCompile Include="src\Apollo\ECS\EntityManager.cpp" />
     <ClCompile Include="src\Apollo\Engine.cpp" />
-    <ClCompile Include="src\Apollo\Interfaces\IECS.cpp" />
+    <ClCompile Include="src\Apollo\Interfaces\ApolloECS.cpp" />
     <ClCompile Include="src\Apollo\Utils\Math.cpp" />
     <ClCompile Include="src\pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>

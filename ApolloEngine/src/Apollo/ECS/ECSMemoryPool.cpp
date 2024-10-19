@@ -3,18 +3,18 @@
 
 namespace Apollo::ECS
 {
-	ECSMemoryPool::ECSMemoryPool(size_t maxEntities)
+	ECSMemoryPool::ECSMemoryPool()
 	{
-		fillComponentVectors(maxEntities, std::make_index_sequence<std::tuple_size<decltype(m_pool)>::value>{});
-		m_tags.resize(maxEntities);
-		m_active.resize(maxEntities);
+		m_pool.reserve(32); // Change for some initial amount of components
+
+		m_tags.resize(Global::Instance().maxEntities);
+		m_active.resize(Global::Instance().maxEntities);
 	}
 
 	size_t ECSMemoryPool::createEntity(const std::string& tag)
 	{
 		size_t index = getFirstFreeIndex();
 
-		resetComponentVectors(index, std::make_index_sequence<std::tuple_size<decltype(m_pool)>::value>{});
 		m_tags[index] = tag;
 		m_active[index] = true;
 		m_totalEntities++;
@@ -24,6 +24,12 @@ namespace Apollo::ECS
 
 	void ECSMemoryPool::destroyEntity(size_t entityID)
 	{
+		for (const auto& [typeIndex, componentArray] : getComponentPool())
+		{
+			auto* arr = dynamic_cast<ComponentArrayBase*>(componentArray.get());
+			arr->removeEntity(entityID);
+		}
+
 		m_active[entityID] = false;
 		m_totalEntities--;
 	}
@@ -44,5 +50,10 @@ namespace Apollo::ECS
 		}
 
 		return -1;
+	}
+
+	const ComponentPool& ECSMemoryPool::getComponentPool() const
+	{
+		return m_pool;
 	}
 }

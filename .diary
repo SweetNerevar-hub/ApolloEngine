@@ -1,17 +1,35 @@
-Date: 09/10/2024 (day/month/year)
+Date: 19/10/2024 (day/month/year)
 
-Subject: Game Events and Event System 
+Subject: Prefab System, Custom ECS Implementation & User-Defined Memory Pool Capacity
 
-The creation of the event system has been an interesting challenge to overcome.
-I wasn't really a big fan of the delegate type system as seen in Unity, as I've always felt it hides where each event is being triggered.
-Especially in this pure ECS architecture, having a system's functions be delegated to an event call, I felt was primed to get lost and thus make it harder to debug of something went wrong and I needed to find all the different system that use that event.
-So I opted for a method of centralising system calls within the event itself (the event handles its own conditional checks and directly calls the relevant system functions).
+This is one gigantic commit. Probably too gigantic, as it's much wiser to commit in smaller chunks. But never the less it's here and it's a doozy.
+There is alot to talk about with this commit as it involves two very big systems, one being brand new (the prefab system) and one being a complete overhaul (ecs).
+From the first I knew that the ECS architecture was going to need an rework, as I used the one illustrated by Dave Churchill, which uses tuples to store component vectors for nice contiguous memory allocation.
+However I knew when I wanted to write flexible code to iterate through the tuple it was a nightmare, not only to learn but also in knowing that it was not going to fly when it came to more complicated things that needed access to those component vectors.
+Actually another reason the tuple implementation was not long for this life was when I knew that something I wanted to implement was the ability for users to create and register their own components, this is necessity but was (at least at my knowledge) impossible to do with tuples,
+as they can't take on new types at runtime.
 
-No doubt this is a very strange implmentation to most, and is rife with problems that I've yet to face; but this event system is the prime reason for this engines existence: solve problems in simple and elegant ways, watch it crash and burn, then pick the pieces and try a different solution.
+Another reason for the switch was the prefab system. The prefab system on paper was the easiest implemention of my life: iterate through each component array, get the data that resides at an entities index, copy it over to a prefab data structure and keep it for later.
+Then just copy the prefab's component data back into a newly made entity, easy peasy.
+What it ended up being though was long nights hearing the Windows 10 error sound, less hair, and probably a non-zero years shaved from my life.
+Since I was stubborn about my ECS architecture being as pure as possible I made it harder on myself, but I would've rather scrapped the whole project than give my on a few microseconds of optimisations.
+What the solve was however, was using alot of dynamic casting with bases classes and ALOT of templated functions (I'm scared of templates, and have come to despise inheritance. But god damn they are useful when striving for flexible code).
+One thing I have still to do in order to fully complete the prefab system is to have the component data be serialised and deserialised, so that prefabs can be created outside of runtime. It's a small thing so I'll probably push it to much later.
 
-One thing I'm still wrestling with is the breaking up of different types of events (that is to say Input Events will be different than Game Events, which will be different than State Machine Events). Technically they're all events, they will all three have very different implmentations and very different outputs.
-For instance, input events will trigger when, obviously, the player triggers an input (keyboard, mouse, etc.) and those will call the relevant systems. State machine events on the other hand will be concerned with AI behaviours, exiting states and entering others. -
-- This is my (probably) poor solution to coupling between states within a finite machine: instead of states directly calling other states they just invoke an event (thus exiting the current state), the state machine will then recieve that event, and enter a new one based on the event and perhaps certain parameters.
-And while it's nice to have them seperated (without needing deep inheritance) I can't help but think with a little more architecting and creativity, they can have the same base identity, but still behave how I need them to.
+The other somewhat smaller but still significant topic is the ability for a user to define the memory pool capacity when creating their game instance.
+The ECS architecture creates a memory pool and I felt kinda weird about it being set in the engine code, where it has no idea about the game that is being created, it could be a super small game that uses no more then a couple hundred (if that) entities,
+in which whatever value I put in as the pool's capacity would be too large and take up unnecessary memory, or on the flip side the game could be a large open-world multiplayer game that could use hundreds of thousands of entities, and so the pool would be dynamically reallocating during runtime,
+each reallocation being longer than the last, and that is no bueno.
+
+What should've been simple in reality took way more time than I thought (that's starting to become a trend). Since my ECS interface that users interact with has a static reference to each ECS mananger class: the Entity Manager and the System's Manager.
+This caused a problem as the Entity Manager, in its constructor, reserved the size of the entities array, but something I learnt (which is whole point of this, and almost made the pain worth it) was that static references are constructed before anything else.
+So the entities array was getting constructed using the global g_maxEntities variable which was still 0 at the time of the manager's construction, before the user defined value was set.
+This made me tighten up my architecture a bit by forcing me to add an initialise function to the Entity Manager which would then reserve the needed memory with the proper value after it had been set.
+This wasn't needed for the System's Manager though as that class is pure logic and only gets used when called for.
+
+A big diary entry for a big commmit. I'm glad the prefab system is done for now and in a good spot, as well as having a custom ECS implementation which is more flexible (but prehaps slightly less performant, idk);
+and allowing more user control in how the engine handles their game is always a win.
+
+I'll probably work on creating an abstraction layer for SFML's window next, something nice and simple...
 
 - Cameron Moore

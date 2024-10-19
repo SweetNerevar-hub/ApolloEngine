@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Export.h"
-#include "Event.h"
+#include "GameEvent.h"
 
 namespace Apollo::Event
 {
