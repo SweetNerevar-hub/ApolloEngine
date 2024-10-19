@@ -7,15 +7,19 @@ namespace Apollo
     {
         // Set a random seed
         srand(time(0));
-    }
 
-	void Engine::run()
-	{
         m_isRunning = true;
 
         // Abstract out the window functionality
         m_window->setFramerateLimit(60);
+        //m_window->setVerticalSyncEnabled(true);
 
+        Global::Instance().maxEntities = game->maxEntities;
+        ApolloECS::initialise();
+    }
+
+	void Engine::run()
+	{
         m_game->init();
 
         // Game Loop
@@ -24,15 +28,18 @@ namespace Apollo
             sf::Clock frameTime;
 
             m_gameEventManager.processEvents();
-            IECS::updateEntityList();
+            ApolloECS::updateEntityList();
             handleInput();
             update();
             render();
+
+            ApolloECS::removeDeadEntities();
+
             m_currentFrame++;
 
             if (m_currentFrame % 60 == 0)
             {
-                printf("FPS: %f\n", 1 / frameTime.getElapsedTime().asSeconds());
+                //printf("FPS: %f\n", 1 / frameTime.getElapsedTime().asSeconds());
             }
         }
 
@@ -49,7 +56,7 @@ namespace Apollo
                 shutdown();
             }
 
-            m_game->handleEvents(m_event);
+            m_game->handleInput(m_event);
         }
     }
 

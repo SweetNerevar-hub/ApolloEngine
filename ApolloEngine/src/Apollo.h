@@ -4,8 +4,8 @@
 #include "pch.h"
 
 #include "Apollo/ECS/Entity.h"
-#include "Apollo/ECS/Components.h"
-#include "Apollo/ECS/Systems.h"
+#include "Apollo/ECS/Component.h"
+#include "Apollo/ECS/System.h"
 
 #include "Apollo/Utils/Math.h"
 

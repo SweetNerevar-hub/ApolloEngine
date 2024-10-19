@@ -99,10 +99,10 @@
     <ClCompile Include="src\Game.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Components\Components.h" />
     <ClInclude Include="src\GameEvents\GameEvents.h" />
-    <ClInclude Include="src\Systems\SMovement.h" />
-    <ClInclude Include="src\Systems\SCollision.h" />
     <ClInclude Include="src\Game.h" />
+    <ClInclude Include="src\Systems\Systems.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ApolloEngine\ApolloEngine.vcxproj">

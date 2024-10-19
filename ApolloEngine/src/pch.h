@@ -8,6 +8,7 @@
 #include <memory>
 #include <algorithm>
 #include <sstream>
+#include <fstream>
 #include <filesystem>
 #include <vector>
 #include <array>
@@ -15,12 +16,12 @@
 #include <map>
 #include <stack>
 #include <queue>
-#include <tuple>
+#include <typeindex>
 
 // SFML
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/Network.hpp>
 
-
 #include "Apollo/Export.h"
+#include "Apollo/Global.h"

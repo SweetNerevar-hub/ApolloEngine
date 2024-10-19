@@ -30,7 +30,7 @@
     <ClInclude Include="src\Apollo\Entry.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Apollo\ECS\Systems.h">
+    <ClInclude Include="src\Apollo\ECS\System.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Apollo\ECS\EntityManager.h">
@@ -45,10 +45,10 @@
     <ClInclude Include="src\Apollo\ECS\ECSMemoryPool.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Apollo\ECS\Components.h">
+    <ClInclude Include="src\Apollo\ECS\Component.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Apollo\Interfaces\IECS.h">
+    <ClInclude Include="src\Apollo\Interfaces\ApolloECS.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Apollo\ECS\SystemsManager.h">
@@ -63,10 +63,19 @@
     <ClInclude Include="src\Apollo\SceneManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Apollo\Event.h">
+    <ClInclude Include="src\Apollo\GameEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Apollo\GameEventManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Apollo\ECS\ComponentArray.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Apollo\Global.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Apollo\ECS\PrefabManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -83,7 +92,7 @@
     <ClCompile Include="src\Apollo\ECS\ECSMemoryPool.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Apollo\Interfaces\IECS.cpp">
+    <ClCompile Include="src\Apollo\Interfaces\ApolloECS.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Apollo\ECS\SystemsManager.cpp">
@@ -96,6 +105,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Apollo\GameEventManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Apollo\ECS\PrefabManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

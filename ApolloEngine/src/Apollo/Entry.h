@@ -8,6 +8,7 @@ int main()
 	// shoving it into the arguments of the engine construction.
 	// And so gives the engine the instance of the actual game to call functions to
 	Apollo::Engine* engine = new Apollo::Engine(Apollo::createGame());
+
 	engine->run();
 
 	delete engine;

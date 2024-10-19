@@ -1,14 +1,14 @@
 #pragma once
 
 #include <Apollo.h>
+#include "../Components/Components.h"
 
 class OnPlayerCollision : public Apollo::Event::GameEvent
 {
 public:
-	OnPlayerCollision(Apollo::ECS::Entity& other) : 
-		m_other(other) {}
-
 	void process() override;
+	
+	OnPlayerCollision(Apollo::ECS::Entity& other) : m_other(other) {}
 
 private:
 	Apollo::ECS::Entity& m_other;
@@ -17,10 +17,9 @@ private:
 class OnCircleSpawn : public Apollo::Event::GameEvent
 {
 public:
-	OnCircleSpawn(sf::Color colour) : 
-		m_colour(colour) {}
-
 	void process() override;
+
+	OnCircleSpawn(sf::Color colour) : m_colour(colour) {}
 
 private:
 	sf::Color m_colour;

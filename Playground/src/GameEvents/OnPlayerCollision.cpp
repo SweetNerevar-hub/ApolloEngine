@@ -10,7 +10,7 @@ void OnPlayerCollision::process()
 		// Call relevant system methods
 	}
 
-	else if (m_other.has<CVelocity>())
+	else if (m_other.has<Velocity>())
 	{
 		// Call relevant system methods
 	}

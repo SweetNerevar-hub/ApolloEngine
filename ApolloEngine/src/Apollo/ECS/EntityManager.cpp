@@ -3,6 +3,11 @@
 
 namespace Apollo::ECS
 {
+	void EntityManager::init()
+	{
+		entities.reserve(Global::Instance().maxEntities);
+	}
+
 	void EntityManager::update()
 	{
 		for (auto& e : m_addNextFrame)
@@ -13,21 +18,50 @@ namespace Apollo::ECS
 		m_addNextFrame.clear();
 	}
 
+	void EntityManager::remove()
+	{
+		if (m_toRemove.empty()) return;
+
+		sf::Clock removeTime;
+
+		std::sort(m_toRemove.begin(), m_toRemove.end());
+		m_toRemove.erase(std::unique(m_toRemove.begin(), m_toRemove.end()), m_toRemove.end());
+
+		entities.erase(std::remove_if(entities.begin(), entities.end(), [this](const Entity& e)
+		{
+			return std::binary_search(m_toRemove.begin(), m_toRemove.end(), e.id);
+		}), entities.end());
+
+		for (size_t id : m_toRemove)
+		{
+			ECSMemoryPool::Instance().destroyEntity(id);
+		}
+		
+		m_toRemove.clear();
+
+		std::cout << "Remove Time: " << removeTime.getElapsedTime().asMicroseconds() << std::endl;
+	}
+
 	Entity EntityManager::create(const std::string& tag)
 	{
 		size_t index = ECSMemoryPool::Instance().createEntity(tag);
 		Entity e = Entity(index);
 
-		m_addNextFrame.push_back(e);
+		m_addNextFrame.emplace_back(e);
 
 		return e;
+	}
+
+	void EntityManager::destroy(Entity entity)
+	{
+		m_toRemove.emplace_back(entity.id);
 	}
 
 	void EntityManager::clear()
 	{
 		for (Entity& e : entities)
 		{
-			e.destroy();
+			destroy(e);
 		}
 
 		entities.clear();

@@ -44,10 +44,5 @@ namespace Apollo::ECS
 		{
 			return ECSMemoryPool::Instance().getTag(id);
 		}
-
-		void destroy()
-		{
-			ECSMemoryPool::Instance().destroyEntity(id);
-		}
 	};
 }
