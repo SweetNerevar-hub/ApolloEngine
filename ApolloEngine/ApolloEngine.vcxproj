@@ -32,6 +32,7 @@
     <ClInclude Include="src\Apollo\Utils\Math.h" />
     <ClInclude Include="src\pch.h" />
     <ClInclude Include="src\Apollo\ECS\SystemsManager.h" />
+    <ClInclude Include="src\Apollo\Window.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Apollo\ECS\PrefabManager.cpp" />
@@ -49,6 +50,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="src\Apollo\ECS\SystemsManager.cpp" />
+    <ClCompile Include="src\Apollo\Window.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

@@ -3,6 +3,7 @@
 #include "Interfaces/IGame.h"
 #include "Interfaces/ApolloECS.h"
 
+#include "Window.h"
 #include "GameEventManager.h"
 
 namespace Apollo
@@ -24,7 +25,7 @@ namespace Apollo
 	private:
 		IGame* m_game = nullptr;
 
-		sf::RenderWindow* m_window = new sf::RenderWindow(sf::VideoMode(800, 600), "ApolloEngine::Playground");
+		Window* m_window = new Window(800, 600, "Apollo::Playground", 60, false);
 
 		Event::GameEventManager m_gameEventManager;
 

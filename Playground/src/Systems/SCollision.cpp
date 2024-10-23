@@ -22,13 +22,13 @@ void SCollision::boundryCheck(Entity e)
 	sf::FloatRect bounds = shape.shape.getGlobalBounds();
 
 	if (pos.y <= 0.f || 
-		pos.y + bounds.height >= 600.f)
+		pos.y + bounds.height >= Apollo::Window::getWindowSize().y)
 	{
 		e.get<Velocity>().vy = -e.get<Velocity>().vy;
 	}
 
 	if (pos.x <= 0.f ||
-		pos.x + bounds.width >= 800.f)
+		pos.x + bounds.width >= Apollo::Window::getWindowSize().x)
 	{
 		e.get<Velocity>().vx = -e.get<Velocity>().vx;
 	}

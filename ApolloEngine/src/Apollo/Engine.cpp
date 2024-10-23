@@ -10,9 +10,7 @@ namespace Apollo
 
         m_isRunning = true;
 
-        // Abstract out the window functionality
-        m_window->setFramerateLimit(60);
-        //m_window->setVerticalSyncEnabled(true);
+        m_window->useVSync(true);
 
         Global::Instance().maxEntities = game->maxEntities;
         ApolloECS::initialise();
@@ -49,8 +47,13 @@ namespace Apollo
     void Engine::handleInput()
     {
         sf::Event m_event;
-        while (m_window->pollEvent(m_event))
+        while (m_window->window()->pollEvent(m_event))
         {
+            if (m_event.type == sf::Event::Resized)
+            {
+                m_window->setWindowSize(m_event.size.width, m_event.size.height);
+            }
+
             if (m_event.type == sf::Event::Closed)
             {
                 shutdown();
@@ -67,11 +70,11 @@ namespace Apollo
 
     void Engine::render()
     {
-        m_window->clear();
+        m_window->window()->clear();
 
-        m_game->render(*m_window);
+        m_game->render(*m_window->window());
 
-        m_window->display();
+        m_window->window()->display();
     }
 
     void Engine::shutdown()

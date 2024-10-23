@@ -9,5 +9,6 @@
 
 #include "Apollo/Utils/Math.h"
 
+#include "Apollo/Window.h"
 #include "Apollo/SceneManager.h"
 #include "Apollo/GameEventManager.h"

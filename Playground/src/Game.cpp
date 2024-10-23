@@ -39,6 +39,11 @@ void Game::handleInput(sf::Event& event)
 			t = true;
 		}
 
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::F5))
+		{
+			Window::toggleFullscreen();
+		}
+
 		break;
 	}
 }
